@@ -83,24 +83,55 @@ public class JeuDeCartes {
 	
 	
 	public Carte[] donnerCartes() {
-		int TotalCarte= 0;
-		
-		for(Configuration config : configurations) {
-			TotalCarte += config.getNbExemplaires() ; 		
+
+		int nombreTotalCartes = 0;
+
+		for (Configuration config : configurations) {
+			nombreTotalCartes += config.getNombreExemplaires();
 		}
-		
-		Carte[] TouteLesCartes = new Carte[TotalCarte];
-		
+
+		Carte[] cartes = new Carte[nombreTotalCartes];
 		int index = 0;
-		
-		for(Configuration config : configurations) {
-			for(int i=0; i < config.getNbExemplaires();i++) {
-				TouteLesCartes[index] = config.getCarte();
-				index++;
-			}		
-		}
-		return TouteLesCartes;
-		
+
+		for (int i = 0; i < 10; i++)
+			cartes[index++] = new Borne(25);
+		for (int i = 0; i < 10; i++)
+			cartes[index++] = new Borne(50);
+		for (int i = 0; i < 10; i++)
+			cartes[index++] = new Borne(75);
+		for (int i = 0; i < 12; i++)
+			cartes[index++] = new Borne(100);
+		for (int i = 0; i < 4; i++)
+			cartes[index++] = new Borne(200);
+
+		for (int i = 0; i < 14; i++)
+			cartes[index++] = new Parade(Type.FEU);
+		for (int i = 0; i < 6; i++)
+			cartes[index++] = new FinLimite();
+		for (int i = 0; i < 6; i++)
+			cartes[index++] = new Parade(Type.ESSENCE);
+		for (int i = 0; i < 6; i++)
+			cartes[index++] = new Parade(Type.CREVAISON);
+		for (int i = 0; i < 6; i++)
+			cartes[index++] = new Parade(Type.ACCIDENT);
+
+		for (int i = 0; i < 5; i++)
+			cartes[index++] = new Attaque(Type.FEU);
+		for (int i = 0; i < 4; i++)
+			cartes[index++] = new DebutLimite();
+		for (int i = 0; i < 3; i++)
+			cartes[index++] = new Attaque(Type.ESSENCE);
+		for (int i = 0; i < 3; i++)
+			cartes[index++] = new Attaque(Type.CREVAISON);
+		for (int i = 0; i < 3; i++)
+			cartes[index++] = new Attaque(Type.ACCIDENT);
+
+		cartes[index++] = new Botte(Type.FEU);
+		cartes[index++] = new Botte(Type.ESSENCE);
+		cartes[index++] = new Botte(Type.CREVAISON);
+		cartes[index++] = new Botte(Type.ACCIDENT);
+
+		return cartes;
 	}
 
 }

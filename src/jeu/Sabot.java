@@ -45,10 +45,6 @@ public class Sabot implements Iterable<Carte> {
 		iter.remove();
 		return carte;
 	}
-	
-	public Carte prendreCarte() {
-        return piocher();
-    }
 
 ///////////////////////////////////// CLASSE "SABOTITERATOR" //////////////////////////////////////////////
 
@@ -60,6 +56,7 @@ public class Sabot implements Iterable<Carte> {
 
 		@Override
 		public boolean hasNext() {
+			concurrentModification();
 			return position < nbCartes;
 		}
 

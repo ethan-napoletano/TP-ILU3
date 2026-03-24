@@ -2,31 +2,35 @@ package cartes;
 
 public class Borne extends Carte {
 	
-	private int Km;
+	private int km;
 	
-	public Borne(int Km) {
-		this.Km = Km;
+	public Borne(int km) {
+		this.km = km;
 	}
 	
-	public int getKm() {
-		return Km;
+	public int getkm(){
+		return km;
 	}
 	
 	@Override
 	public String toString() {
-		return Km + " km";
-	}
+		return km + "KM";
+	}	
 	
 	@Override
 	public boolean equals(Object obj) {
-		if(this == obj) {
+		if (this == obj) {
 			return true;
 		}
-		if(obj == null || this.getClass() != obj.getClass()) {
+		if (obj == null || this.getClass() != obj.getClass()){
 			return false;
 		}
 		Borne bor = (Borne) obj;
-		return Km == bor.Km;
+		return km == bor.km;
 	}
-
+	
+	@Override
+	public int hashCode() {
+		return Integer.hashCode(km);
+	}
 }

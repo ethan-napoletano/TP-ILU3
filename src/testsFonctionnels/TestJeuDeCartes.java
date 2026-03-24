@@ -1,15 +1,19 @@
 package testsFonctionnels;
 
-import cartes.JeuDeCartes;
+import cartes.*;
 
 public class TestJeuDeCartes {
-	public static void main(String[] args) {
-		JeuDeCartes jeu = new JeuDeCartes();
-		System.out.println("JEU:\n" + jeu.afficherJeuDeCartes());
-		
-        if (!jeu.checkCount()) {
-            System.out.println("erreur de nombre");
-        }
 
+	public static void main(String[] args) {
+		JeuDeCartes jeuDeCartes = new JeuDeCartes();
+
+		jeuDeCartes.affichageJeuDeCartes();
+
+		System.out.println();
+		Carte[] cartes = jeuDeCartes.donnerCartes();
+		System.out.println("Nombre total de cartes : " + cartes.length);
+
+		System.out.println();
+		System.out.println("Verification du nombre de carte : " + jeuDeCartes.checkCount());
 	}
 }
