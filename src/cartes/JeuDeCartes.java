@@ -7,43 +7,19 @@ public class JeuDeCartes {
 			new Configuration(new Borne(75), 10), new Configuration(new Borne(100), 12),
 			new Configuration(new Borne(200), 4),
 
-			new Configuration(new Parade(Type.FEU), 14), 
-			new Configuration(new Parade(Type.ESSENCE), 6),
-			new Configuration(new Parade(Type.CREVAISON), 6), 
-			new Configuration(new Parade(Type.ACCIDENT), 6),
+			new Configuration(new Parade(Type.FEU), 14), new Configuration(new Parade(Type.ESSENCE), 6),
+			new Configuration(new Parade(Type.CREVAISON), 6), new Configuration(new Parade(Type.ACCIDENT), 6),
 			new Configuration(new FinLimite(), 6),
 
-			new Configuration(new Attaque(Type.FEU), 5), 
-			new Configuration(new Attaque(Type.ESSENCE), 3),
-			new Configuration(new Attaque(Type.CREVAISON), 3), 
-			new Configuration(new Attaque(Type.ACCIDENT), 3),
+			new Configuration(new Attaque(Type.FEU), 5), new Configuration(new Attaque(Type.ESSENCE), 3),
+			new Configuration(new Attaque(Type.CREVAISON), 3), new Configuration(new Attaque(Type.ACCIDENT), 3),
 			new Configuration(new DebutLimite(), 4),
 
-			new Configuration(new Botte(Type.FEU), 1), 
-			new Configuration(new Botte(Type.ESSENCE), 1),
-			new Configuration(new Botte(Type.CREVAISON), 1), 
-			new Configuration(new Botte(Type.ACCIDENT), 1) };
-	
-	
-	private static class Configuration {
-		private Carte carte;
-		private int nombreExemplaires;
-		
+			new Configuration(new Botte(Type.FEU), 1), new Configuration(new Botte(Type.ESSENCE), 1),
+			new Configuration(new Botte(Type.CREVAISON), 1), new Configuration(new Botte(Type.ACCIDENT), 1) };
 
-		Configuration(Carte carte, int nombreExemplaires) {
-			this.carte = carte;
-			this.nombreExemplaires = nombreExemplaires;
-		}
-
-		Carte getCarte() {
-			return carte;
-		}
-
-		int getNbExemplaires() {
-			return nombreExemplaires;
-		}
-	}
 	
+
 	public boolean checkCount() {
 		for (Configuration config : configurations) {
 
@@ -65,73 +41,57 @@ public class JeuDeCartes {
 		return true;
 	}
 
-
-	
 	public String afficherJeuDeCartes() {
 
-	    StringBuilder affichage = new StringBuilder("JeuDeCartes :\n");
-
-	    for (Configuration config : configurations) {
-	        affichage.append(config.getNbExemplaires())
-	                 .append(" ")
-	                 .append(config.getCarte())
-	                 .append("\n");
-	    }
-
-	    return affichage.toString();
-	}
-	
-	
-	public Carte[] donnerCartes() {
-
-		int nombreTotalCartes = 0;
+		StringBuilder affichage = new StringBuilder("JeuDeCartes :\n");
 
 		for (Configuration config : configurations) {
-			nombreTotalCartes += config.getNombreExemplaires();
+			affichage.append(config.getNbExemplaires());
+			affichage.append(" ");
+			affichage.append(config.getCarte());
+			affichage.append("\n");
 		}
 
-		Carte[] cartes = new Carte[nombreTotalCartes];
+		return affichage.toString();
+	}
+
+	public Carte[] donnerCartes() {
+		int TotalCarte= 0;
+		
+		for(Configuration config : configurations) {
+			TotalCarte += config.getNbExemplaires() ; 		
+		}
+		
+		Carte[] TouteLesCartes = new Carte[TotalCarte];
+		
 		int index = 0;
+		
+		for(Configuration config : configurations) {
+			for(int i=0; i < config.getNbExemplaires();i++) {
+				TouteLesCartes[index] = config.getCarte();
+				index++;
+			}		
+		}
+		return TouteLesCartes;
+		
+	}
+	
+	private static class Configuration {
+		private Carte carte;
+		private int nombreExemplaires;
 
-		for (int i = 0; i < 10; i++)
-			cartes[index++] = new Borne(25);
-		for (int i = 0; i < 10; i++)
-			cartes[index++] = new Borne(50);
-		for (int i = 0; i < 10; i++)
-			cartes[index++] = new Borne(75);
-		for (int i = 0; i < 12; i++)
-			cartes[index++] = new Borne(100);
-		for (int i = 0; i < 4; i++)
-			cartes[index++] = new Borne(200);
+		public Configuration(Carte carte, int nombreExemplaires) {
+			this.carte = carte;
+			this.nombreExemplaires = nombreExemplaires;
+		}
 
-		for (int i = 0; i < 14; i++)
-			cartes[index++] = new Parade(Type.FEU);
-		for (int i = 0; i < 6; i++)
-			cartes[index++] = new FinLimite();
-		for (int i = 0; i < 6; i++)
-			cartes[index++] = new Parade(Type.ESSENCE);
-		for (int i = 0; i < 6; i++)
-			cartes[index++] = new Parade(Type.CREVAISON);
-		for (int i = 0; i < 6; i++)
-			cartes[index++] = new Parade(Type.ACCIDENT);
+		public Carte getCarte() {
+			return carte;
+		}
 
-		for (int i = 0; i < 5; i++)
-			cartes[index++] = new Attaque(Type.FEU);
-		for (int i = 0; i < 4; i++)
-			cartes[index++] = new DebutLimite();
-		for (int i = 0; i < 3; i++)
-			cartes[index++] = new Attaque(Type.ESSENCE);
-		for (int i = 0; i < 3; i++)
-			cartes[index++] = new Attaque(Type.CREVAISON);
-		for (int i = 0; i < 3; i++)
-			cartes[index++] = new Attaque(Type.ACCIDENT);
-
-		cartes[index++] = new Botte(Type.FEU);
-		cartes[index++] = new Botte(Type.ESSENCE);
-		cartes[index++] = new Botte(Type.CREVAISON);
-		cartes[index++] = new Botte(Type.ACCIDENT);
-
-		return cartes;
+		public int getNbExemplaires() {
+			return nombreExemplaires;
+		}
 	}
 
 }

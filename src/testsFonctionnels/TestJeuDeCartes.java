@@ -7,7 +7,7 @@ public class TestJeuDeCartes {
 	public static void main(String[] args) {
 		JeuDeCartes jeuDeCartes = new JeuDeCartes();
 
-		jeuDeCartes.affichageJeuDeCartes();
+		jeuDeCartes.afficherJeuDeCartes();
 
 		System.out.println();
 		Carte[] cartes = jeuDeCartes.donnerCartes();

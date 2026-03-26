@@ -9,7 +9,7 @@ public class Sabot implements Iterable<Carte> {
 
 	private Carte[] cartes;
 	private int nbCartes;
-	int modCount = 0;
+	private int modCount = 0;
 
 	public Sabot(Carte[] cartes) {
 		this.cartes = cartes;
