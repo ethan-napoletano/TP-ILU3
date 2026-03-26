@@ -56,13 +56,13 @@ public class JeuDeCartes {
 	}
 
 	public Carte[] donnerCartes() {
-		int TotalCarte= 0;
+		int totalCarte= 0;
 		
 		for(Configuration config : configurations) {
-			TotalCarte += config.getNbExemplaires() ; 		
+			totalCarte += config.getNbExemplaires() ; 		
 		}
 		
-		Carte[] TouteLesCartes = new Carte[TotalCarte];
+		Carte[] TouteLesCartes = new Carte[totalCarte];
 		
 		int index = 0;
 		
@@ -80,7 +80,7 @@ public class JeuDeCartes {
 		private Carte carte;
 		private int nombreExemplaires;
 
-		public Configuration(Carte carte, int nombreExemplaires) {
+		private Configuration(Carte carte, int nombreExemplaires) {
 			this.carte = carte;
 			this.nombreExemplaires = nombreExemplaires;
 		}
