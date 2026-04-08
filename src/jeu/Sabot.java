@@ -35,15 +35,20 @@ public class Sabot implements Iterable<Carte> {
 	}
 	
 	public Carte piocher() {
-		
-		if (estVide()) {
-			throw new NoSuchElementException("Sabot vide");
-		}
-		
-		Iterator<Carte> iter = iterator();
-		Carte carte = iter.next();
-		iter.remove();
-		return carte;
+	    if (estVide()) {
+	        return null;
+	    }
+
+	    Carte carte = cartes[0];
+
+	    for (int i = 0; i < nbCartes - 1; i++) {
+	        cartes[i] = cartes[i + 1];
+	    }
+
+	    nbCartes--;
+	    modCount++;
+
+	    return carte;
 	}
 
 ///////////////////////////////////// CLASSE "SABOTITERATOR" //////////////////////////////////////////////
