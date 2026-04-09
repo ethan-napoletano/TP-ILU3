@@ -1,126 +1,102 @@
 package utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Random;
+import java.util.*;
 
 public class GestionCartes {
+	
+    private static final Random rand = new Random();
+    
+    private GestionCartes() {
+    	throw new IllegalStateException("Utility class");
+    }
 
-	private static Random random = new Random();
 
-	// VERSION CLASSIQUE
+    public static <T> T extraire(List<T> liste) {
+        int indice = rand.nextInt(liste.size());
+        return liste.remove(indice);
+    }
 
-	public static <E> E extraire(List<E> liste) {
-		if (liste == null || liste.isEmpty()) {
-			throw new IllegalArgumentException("La liste peut pas être vide");
-		}
-		int indice = random.nextInt(liste.size());
-		return liste.remove(indice);
-	}
 
-	// VERSION ITÉRATEUR
+    public static <T> T extraireIterateur(List<T> liste) {
+        int indice = rand.nextInt(liste.size());
 
-	public static <E> E extraireIterator(List<E> liste) {
+        ListIterator<T> it = liste.listIterator(indice);
+        T element = it.next();
+        it.remove();
 
-		if (liste == null || liste.isEmpty()) {
-			throw new IllegalArgumentException("La liste peut pas être vide");
-		}
+        return element;
+    }
 
-		int indice = random.nextInt(liste.size());
-		ListIterator<E> iter = liste.listIterator();
 
-		for (int i = 0; i < indice; i++) {
-			iter.next();
-		}
+    
+    
 
-		iter.previous();
-		E elt = iter.next();
-		return elt;
-	}
+    public static <T> List<T> melanger(List<T> liste) {
+        List<T> resultat = new ArrayList<>();
 
-	public static <E> List<E> melanger(List<E> liste) {
-		List<E> listeHasard = new ArrayList<>();
+        while (!liste.isEmpty()){
+            resultat.add(extraire(liste));
+        }
+        return resultat;
+    }
 
-		while (!liste.isEmpty()) {
-			listeHasard.add(extraire(liste));
-		}
+    
+    
 
-		return listeHasard;
+    public static <T> boolean verifierMelange(List<T> l1, List<T> l2) {
+        if (l1.size() != l2.size()) return false;
 
-	}
+        for (T e : l1) {
 
-	public static <E> boolean verifierMelange(List<E> liste1, List<E> liste2) {
+            if (Collections.frequency(l1, e)
+                    != Collections.frequency(l2, e)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-		if (liste1.size() != liste2.size()) {
-			return false;
-		}
+    
+    
 
-		List<E> copie = new ArrayList<>(liste1);
+    public static <T> List<T> rassembler(List<T> liste) {
+        List<T> resultat = new ArrayList<>();
 
-		for (E elt : copie) {
-			if (Collections.frequency(liste1, elt) != Collections.frequency(liste2, elt)) {
-				return false;
-			}
-		}
+        while (!liste.isEmpty()) {
+            T element = liste.remove(0);
+            resultat.add(element);
 
-		return true;
-	}
+            Iterator<T> it = liste.iterator();
 
-	public static <E> List<E> rassembler(List<E> liste) {
+            while (it.hasNext()) {
+                T e = it.next();
+                if (e.equals(element)) {
+                    resultat.add(e);
+                    it.remove();
+                }
+            }
+        }
+        return resultat;
+    }
 
-		List<E> listeFinit = new ArrayList<>();
-		List<E> copie = new ArrayList<>(liste);
+    
+    
 
-		while (!copie.isEmpty()) {
-			E elt = copie.get(0);
-			listeFinit.add(elt);
-			copie.remove(0);
+    public static <T> boolean verifierRassemblement(List<T> liste) {
+        ListIterator<T> it = liste.listIterator();
 
-			ListIterator<E> iter = copie.listIterator();
+        T precedent = it.next();
 
-			while (iter.hasNext()) {
-				E courant = iter.next();
+        while (it.hasNext()){
+            T courant = it.next();
 
-				if (elt.equals(courant)) {
-					listeFinit.add(courant);
-					iter.remove();
-				}
-			}
-		}
-		return listeFinit;
-	}
+            if (courant.equals(precedent)){
+                return false;
+            }
 
-	public static <E> boolean verifierRassemblement(List<E> liste) {
-
-		if (liste == null || liste.size() <= 1) {
-			return true;
-		}
-
-		ListIterator<E> iter1 = liste.listIterator();
-		E eltPrec = null;
-
-		while (iter1.hasNext()) {
-
-			E eltCour = iter1.next();
-
-			if (eltPrec != null && !eltCour.equals(eltPrec)) {
-
-				ListIterator<E> iter2 = liste.listIterator(iter1.nextIndex());
-
-				while (iter2.hasNext()) {
-
-					E eltNext = iter2.next();
-
-					if (eltPrec.equals(eltNext)) {
-						return false;
-					}
-				}
-			}
-			eltPrec = eltCour;
-		}
-		return true;
-	}
+            precedent = courant;
+        }
+        return true;
+    }
 
 }

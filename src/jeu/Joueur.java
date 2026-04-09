@@ -1,61 +1,78 @@
 package jeu;
 
-
-import java.util.Objects;
-
 import cartes.Carte;
 
 public class Joueur {
-    private final String nom;
-    private final ZoneDeJeu zoneDeJeu;
-    private final MainJoueur main;
+	private String nom;
+	private ZoneDeJeu zone;
+	private MainJoueur main;
+	
+	public Joueur(String nom) {
+		this.nom = nom;
+		this.zone = new ZoneDeJeu();
+		this.main = new MainJoueur();
+	}
 
-    public Joueur(String nom) {
-        this.nom = nom;
-        this.zoneDeJeu = new ZoneDeJeu();
-        this.main = new MainJoueur();
-    }
+	public String getNom() {
+		return nom;
+	}
+	
+	public MainJoueur getMain() {
+		return main;
+	}
+	
+	public void donner(Carte carte) {
+		main.prendre(carte);
+	}
+	
+	@Override
+	public boolean equals(Object objet) {
+		if(objet instanceof Joueur joueur) {
+			return nom.equals(joueur.getNom());
+		}
+		return false;
+	}
+	
 
-    public String getNom() {
-        return nom;
-    }
+	@Override
+	public String toString() {
+		return nom;
+	}
+	
 
-    public ZoneDeJeu getZoneDeJeu() {
-        return zoneDeJeu;
-    }
+	public Carte prendreCarte(Sabot sabot) {
+		if(sabot.estVide()) {
+			return null;
+		}
+		
 
-    public MainJoueur getMain() {
-        return main;
-    }
+		Carte carte = sabot.piocher();
+		
 
-    public void donner(Carte carte) {
-        main.prendre(carte);
-    }
+		this.donner(carte);
+		
+		return carte;		
+	}
+	
+	public int donnerKmParcourus() {
+	    return zone.donnerKmParcourus();
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Joueur joueur)) return false;
-        return Objects.equals(nom, joueur.nom);
-    }
+	public int donnerLimitationVitesse() {
+	    return zone.donnerLimitationVitesse();
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(nom);
-    }
+	public void deposer(Carte carte) {
+	    zone.deposer(carte);
+	}
+	
+	public boolean peutAvancer() {
+	    return zone.peutAvancer();
+	}
 
-    @Override
-    public String toString() {
-        return nom;
-    }
-    
-    public Carte prendreCarte(Sabot sabot) {
-        Carte carte = sabot.piocher();
 
-        if (carte != null) {
-            donner(carte);
-        }
+	public boolean estDepotAutorise(Carte carte) {
+	    return zone.estDepotAutorise(carte);
+	}
 
-        return carte;
-    }
 }

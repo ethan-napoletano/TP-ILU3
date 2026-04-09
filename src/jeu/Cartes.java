@@ -3,13 +3,16 @@ package jeu;
 import cartes.Attaque;
 import cartes.Botte;
 import cartes.Parade;
-import cartes.Carte;
 import cartes.Type;
 
 public interface Cartes {
+	
 
-    Carte PRIORITAIRE = new Botte(Type.FEU);
-    Carte FEU_ROUGE = new Attaque(Type.FEU);
-    Carte FEU_VERT = new Parade(Type.FEU);
+	Botte PRIORITAIRE = new Botte(Type.FEU);
+	
+
+	Attaque FEU_ROUGE = new Attaque(Type.FEU);
+	
+	Parade FEU_VERT = new Parade(Type.FEU);
 
 }
