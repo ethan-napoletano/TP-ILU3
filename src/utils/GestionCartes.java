@@ -81,22 +81,38 @@ public class GestionCartes {
 
     
     
-
     public static <T> boolean verifierRassemblement(List<T> liste) {
-        ListIterator<T> it = liste.listIterator();
+        if (liste.isEmpty()) return true;
 
-        T precedent = it.next();
+        ListIterator<T> it1 = liste.listIterator();
+        T precedent = it1.next();
 
-        while (it.hasNext()){
-            T courant = it.next();
+        while (it1.hasNext()) {
+            T courant = it1.next();
 
-            if (courant.equals(precedent)){
-                return false;
+            if (!courant.equals(precedent)) {
+                if (!pasDupli(liste, it1.nextIndex(), precedent)) {
+                    return false;
+                }
             }
 
             precedent = courant;
         }
+
         return true;
+    }
+
+
+    private static <T> boolean pasDupli(List<T> liste, int startIndex, T valeur) {
+        ListIterator<T> it = liste.listIterator(startIndex);
+
+        while (it.hasNext()) {
+            if (it.next().equals(valeur)) {
+                return false; 
+            }
+        }
+
+        return true; 
     }
 
 }

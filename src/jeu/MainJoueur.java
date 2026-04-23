@@ -1,37 +1,37 @@
 package jeu;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
-
 
 import cartes.Carte;
 
-public class MainJoueur {
-	private List<Carte>main = new ArrayList<>();
+public class MainJoueur implements Iterable<Carte>{
+	private List <Carte> CartesDansMain;
 	
 	public MainJoueur() {
-        this.main = new ArrayList<>();
-    }
+		this.CartesDansMain = new LinkedList<>();
+	}
 	
 	public void prendre(Carte carte) {
-        main.add(carte);
-    }
-	
+		CartesDansMain.add(carte);
+	}
 	
 	public void jouer(Carte carte) {
-        assert main.contains(carte) : "Carte non présente dans la main";
-        main.remove(carte);
-    }
+		assert CartesDansMain.contains(carte) : "il n'y a pas cette carte";
+		CartesDansMain.remove(carte);
+	}
 	
-	@Override
-    public String toString() {
-        return main.toString();
-    }
 
+	@Override
+	public String toString() {
+		return CartesDansMain.toString();
+	}
+
+	@Override
 	public Iterator<Carte> iterator() {
-        return main.iterator();
-    }
-    
+		return CartesDansMain.iterator();
+	}
+	
 
 }
